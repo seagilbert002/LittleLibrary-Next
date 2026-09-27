@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Little Library (Next.js/TypeScript)
 
-## Getting Started
+**Capstone Project**
+Modernized, full-stack Next.js application implementing software design, security focused algorithms, and relational database controls.
 
-First, run the development server:
+## Project Overview
+Little Library is a personal book collection and environmental monitoring system. It provides book collection management, loan request state machines for lending to friends, and real-time environmental telemetry monitoring for temperature and humidity to protect the physical book collection against humidity induced mold.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The repository is the transition away from my legacy Go baseline to a modular TypeScript/Next.js architecture with a standalone Hardware Abstraction Layer telemetry daemon and a PostgresSQL database.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Capstone Enhancements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### **Category One: Software Design & Engineering**
+- **Hardware Abstraction Layer (HAL):** Refactored monolithic thermostat routines into a standalone HAL driver supporting physical I2C sensors and simulated hardware testing section.
+- **Asynchronous Telemetry Daemon:** Created a fault-tolerant background polling loop with explicit error handling and exponential backoff retry logic during network interruptions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **Category Two: Algorithms & Data Structures**
+- **Rolling Average Humidity Filter:** Sliding arraw window queue with a O(1) for eviction, and O(*k*) averaging where k <= number of slots in the array) that smooths sensor noise and filters transient spikes to detect sustained high mold risks.
+- **Key Stretching Password Hashing:** O(2^k) hashing loop using a 16 byte random salt and SHA-256 iterations to defend against password attacks.
+- **Constant Time Hash Comparisons:** O(*n*) full scan of the hash string algorithm that evaluates every character position regardless of mismatch status, keeping execution duration constant to neutralize timing attacks.
+- **Finite State Machine Request Transitions:** Deterministic state machine governing loan states and automating concurrency resolution for competing book requests.
 
-## Learn More
+### ***TODO*** **Category Three: Databases & Security:** 
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend Framework:** Next.js 14+, React, TypeScript, Tailwind CSS
+- **Backend & API:** Next.js Server Actions/API Routes, Node.js runtime
+- **Database:** Raw PostgresSQL (`pg` pool)
+- **Telemetry Daemon:** Python 3 (Raspberry Pi/I2C/Adafruit CircuitPython)
+- **Testing & Tools:** `ts-node` for algorithm CLI verification
