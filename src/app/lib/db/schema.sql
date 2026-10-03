@@ -61,3 +61,7 @@ CREATE TABLE bookshelf_telemetry (
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_requests_user_status ON book_requests(user_id, status);
 CREATE INDEX idx_telemetry_shelf_time ON bookshelf_telemetry(shelf_id, recorded_at DESC);
+-- Performance Indexes
+CREATE INDEX IF NOT EXISTS idx_book_requests_book_id ON book_requests(book_id);
+CREATE INDEX IF NOT EXISTS idx_books_author_title ON books(author, title);
+CREATE INDEX IF NOT EXISTS idx_books_genre ON books(genre);
