@@ -13,13 +13,13 @@ export async function createSession(userId: string) {
 
     // Insert session into active sessions
     await pool.query(
-        `INSERT INTO sessions (id, user_id, expires_at) VALUES ($1, $2, $3`, [sessionId, userId, expiresAt]
+        `INSERT INTO sessions (id, user_id, expires_at) VALUES ($1, $2, $3)`, [sessionId, userId, expiresAt]
     );
 
     const cookieStore = await cookies()
     cookieStore.set('session', sessionId, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         expires: expiresAt,
         sameSite: 'lax',
         path: '/',
